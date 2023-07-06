@@ -61,7 +61,7 @@ func newMiddleware(ossDB database.DB, authPrefix string, isAPIHandler bool, next
 		// redirecting.
 		span, _ := trace.New(r.Context(), "githubapp")
 		span.SetAttributes(attribute.Bool("isAPIHandler", isAPIHandler))
-		span.Finish()
+		span.End()
 		if strings.HasPrefix(r.URL.Path, authPrefix+"/") {
 			handler.ServeHTTP(w, r)
 			return

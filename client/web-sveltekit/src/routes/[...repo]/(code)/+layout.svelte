@@ -2,40 +2,57 @@
     import { mdiChevronDoubleLeft, mdiChevronDoubleRight } from '@mdi/js'
 
     import { page } from '$app/stores'
+    import { isErrorLike } from '$lib/common'
     import Icon from '$lib/Icon.svelte'
-    import FileTree from '$lib/repo/FileTree.svelte'
-    import { asStore } from '$lib/utils'
+    import { FileTreeProvider } from '$lib/repo/api/tree'
     import Separator, { getSeparatorPosition } from '$lib/Separator.svelte'
 
     import type { PageData } from './$types'
+    import FileTree from './FileTree.svelte'
 
     export let data: PageData
 
-    function last<T>(arr: T[]): T {
-        return arr[arr.length - 1]
+    let treeProvider: FileTreeProvider | null = null
+
+    async function updateFileTreeProvider(repoName: string, revision: string | undefined, parentPath: string) {
+        treeProvider = null
+        const commit = await data.commitWithTree.deferred
+
+        // Do nothing if update was called with new arguments in the meantime
+        if (repoName !== data.repoName || revision !== data.revision || parentPath !== data.parentPath) {
+            return
+        }
+
+        treeProvider =
+            !isErrorLike(commit) && commit?.tree
+                ? new FileTreeProvider({
+                      tree: commit.tree,
+                      repoName,
+                      revision: revision ?? '',
+                      commitID: commit.oid,
+                  })
+                : null
     }
 
-    $: treeOrError = asStore(data.treeEntries.deferred)
+    // Only update the tree provider (which causes the file tree to rerender) if the new file tree would be rooted at an
+    // ancestor of the current file tree
+    $: ({ repoName, revision, parentPath } = data)
+    $: updateFileTreeProvider(repoName, revision, parentPath)
 
     let showSidebar = true
     const sidebarSize = getSeparatorPosition('repo-sidebar', 0.2)
     $: sidebarWidth = showSidebar ? `max(200px, ${$sidebarSize * 100}%)` : undefined
+    $: console.log($page.params.path)
 </script>
 
 <section>
     <div class="sidebar" class:open={showSidebar} style:min-width={sidebarWidth} style:max-width={sidebarWidth}>
-        {#if showSidebar && !$treeOrError.loading && $treeOrError.data}
-            <FileTree
-                activeEntry={$page.params.path ? last($page.params.path.split('/')) : ''}
-                treeOrError={$treeOrError.data}
-            >
-                <h3 slot="title">
-                    Files
-                    <button on:click={() => (showSidebar = false)}
-                        ><Icon svgPath={mdiChevronDoubleLeft} inline /></button
-                    >
-                </h3>
-            </FileTree>
+        {#if showSidebar && treeProvider}
+            <h3>
+                Files
+                <button on:click={() => (showSidebar = false)}><Icon svgPath={mdiChevronDoubleLeft} inline /></button>
+            </h3>
+            <FileTree {treeProvider} selectedPath={$page.params.path ?? ''} />
         {/if}
         {#if !showSidebar}
             <button class="open-sidebar" on:click={() => (showSidebar = true)}

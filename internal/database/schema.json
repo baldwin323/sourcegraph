@@ -10169,7 +10169,7 @@
         {
           "Name": "contents",
           "Index": 3,
-          "TypeName": "text",
+          "TypeName": "bytea",
           "IsNullable": false,
           "Default": "",
           "CharacterMaximumLength": 0,

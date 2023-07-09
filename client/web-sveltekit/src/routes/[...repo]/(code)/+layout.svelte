@@ -42,7 +42,6 @@
     let showSidebar = true
     const sidebarSize = getSeparatorPosition('repo-sidebar', 0.2)
     $: sidebarWidth = showSidebar ? `max(200px, ${$sidebarSize * 100}%)` : undefined
-    $: console.log($page.params.path)
 </script>
 
 <section>

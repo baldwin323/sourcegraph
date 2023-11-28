@@ -32,7 +32,7 @@
     "sass": "^1.32.4",
     "signale": "^1.4.0",
     "terser-webpack-plugin": "^5.3.6",
-    "typed-scss-modules": "^4.1.1",
+    "typed-scss-modules": "^8.0.0",
     "webpack": "^5.75.0"
   }
 }

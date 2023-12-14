@@ -941,7 +941,7 @@
     "@sourcegraph/cody-shared": "workspace:*",
     "@sourcegraph/cody-ui": "workspace:*",
     "lru-cache": "^9.1.1",
-    "openai": "^3.2.1",
+    "openai": "^4.0.0",
     "wink-eng-lite-web-model": "^1.5.0",
     "wink-nlp": "^1.13.1",
     "wink-nlp-utils": "^2.1.0"

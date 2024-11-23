@@ -1,5 +1,5 @@
 # This image creates a standalone web server for demoing the prototype
-FROM node:18.17.0
+FROM node:18.20.5
 
 ARG PROJECT_ROOT="."
 

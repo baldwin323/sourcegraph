@@ -25,7 +25,7 @@
     "enhanced-resolve": "^5.9.3",
     "esbuild": "^0.17.7",
     "monaco-editor-webpack-plugin": "^3.1.0",
-    "postcss": "^8.4.19",
+    "postcss": "^8.4.31",
     "postcss-cli": "^10.1.0",
     "postcss-modules": "^6.0.0",
     "process": "^0.11.10",
@@ -33,6 +33,6 @@
     "signale": "^1.4.0",
     "terser-webpack-plugin": "^5.3.6",
     "typed-scss-modules": "^4.1.1",
-    "webpack": "^5.75.0"
+    "webpack": "^5.94.0"
   }
 }

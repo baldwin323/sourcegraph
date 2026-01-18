@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "@remix-run/css-bundle": "^1.17.0",
-    "@remix-run/express": "^1.17.0",
-    "@remix-run/node": "^1.17.0",
-    "@remix-run/react": "^1.17.0",
+    "@remix-run/express": "^2.17.4",
+    "@remix-run/node": "^2.17.4",
+    "@remix-run/react": "^2.17.4",
     "@remix-run/server-runtime": "^1.17.0",
     "isbot": "^3.6.8",
     "morgan": "^1.10.0",

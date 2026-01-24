@@ -52,7 +52,7 @@
     "@sourcegraph/shared": "workspace:*",
     "@sourcegraph/web": "workspace:*",
     "@sourcegraph/wildcard": "workspace:*",
-    "lodash-es": "^4.17.21",
+    "lodash-es": "^4.17.23",
     "prismjs": "^1.29.0"
   }
 }
